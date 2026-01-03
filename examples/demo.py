@@ -62,7 +62,8 @@ def main(api_url: str, api_key: str, model: str):
 if __name__ == "__main__":
     # 在这里配置你的 API
     API_URL = "https://api.bltcy.ai/v1/chat/completions"
-    API_KEY = "sk-F86v2p0Cy0wTxXxQMktTItFgsxc58DIitDrDX0igR7ojNxQ2"
+    API_KEY = "sk-F86v2p0Cy0wTxXxxc58DIitDrDX0igR7ojNxQ2"
+    # 请联系作者获取apikey
     MODEL = "gemini-3-flash-preview"
 
     main(API_URL, API_KEY, MODEL)
