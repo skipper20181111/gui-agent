@@ -1,0 +1,22 @@
+# IDE
+.idea/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+
+# Virtual environment
+venv/
+.venv/
+env/
+
+# Screenshots (generated files)
+screenshots/
+
+# OS files
+.DS_Store
+Thumbs.db
