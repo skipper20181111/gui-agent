@@ -1,6 +1,7 @@
 """Python 代码执行沙箱工具"""
 
 import subprocess
+import sys
 import tempfile
 from pathlib import Path
 
@@ -41,7 +42,7 @@ def execute_python(code: str, timeout: int = 30) -> ToolResult:
         try:
             # 执行代码
             result = subprocess.run(
-                ['python', str(temp_path)],
+                [sys.executable, str(temp_path)],
                 capture_output=True,
                 text=True,
                 timeout=timeout

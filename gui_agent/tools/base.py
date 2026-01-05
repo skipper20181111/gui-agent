@@ -23,19 +23,36 @@ class ScreenCapture:
         self.scale_factor = self._get_scale_factor()
     
     def _get_scale_factor(self) -> float:
-        """获取屏幕缩放因子（macOS Retina）"""
-        if platform.system() != "Darwin":
+        """获取屏幕缩放因子（macOS Retina / Windows 高 DPI）"""
+        system = platform.system()
+        
+        # macOS: 检测 Retina 显示屏
+        if system == "Darwin":
+            try:
+                result = subprocess.run(
+                    ["system_profiler", "SPDisplaysDataType"],
+                    capture_output=True,
+                    text=True
+                )
+                if "Retina" in result.stdout:
+                    return 2.0
+            except Exception:
+                pass
             return 1.0
-        try:
-            result = subprocess.run(
-                ["system_profiler", "SPDisplaysDataType"],
-                capture_output=True,
-                text=True
-            )
-            if "Retina" in result.stdout:
-                return 2.0
-        except Exception:
-            pass
+        
+        # Windows: 检测 DPI 缩放
+        if system == "Windows":
+            try:
+                import ctypes
+                # 设置 DPI 感知，获取真实缩放比例
+                ctypes.windll.shcore.SetProcessDpiAwareness(1)
+                scale = ctypes.windll.shcore.GetScaleFactorForDevice(0) / 100
+                return scale if scale > 1 else 1.0
+            except Exception:
+                pass
+            return 1.0
+        
+        # Linux 及其他系统
         return 1.0
     
     def capture(self, delay_ms: int = 0) -> str:

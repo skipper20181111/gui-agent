@@ -52,8 +52,8 @@ def main(api_url: str, api_key: str, model: str):
     initial_screenshot = screenshot()
     
     # 运行任务
-    task = "请打开 chrome 浏览器，并通过 google 搜索一下今天的新闻请打开 chrome 浏览器，并通过 google 搜索一下今天的新闻"
-    task = "请用python计算一下1+1=？并告诉我当前页面是什么？"
+    task = "请打开 chrome 浏览器，并通过 google 搜索一下委内瑞拉的新闻，必须用scroll看完一整页的新闻标题再做总结"
+    # task = "请用python计算一下1+1=？并告诉我当前页面是什么？"
     print(f"\n[Demo] 任务: {task}")
     
     result = agent.run(task, image_base64=initial_screenshot.image_base64)
@@ -67,7 +67,7 @@ def main(api_url: str, api_key: str, model: str):
 if __name__ == "__main__":
     # 在这里配置你的 API
     API_URL = "https://api.bltcy.ai/v1/chat/completions"
-    API_KEY = "sk-F86v2p0Cy0wTxIitDrDX0igR7ojNxQ2"
+    API_KEY = "sk-F86v2p0Cy0DrDX0igR7ojNxQ2"
     # 请联系作者获取apikey
     MODEL = "gemini-3-flash-preview"
 
