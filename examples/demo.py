@@ -3,7 +3,7 @@ Demo: 使用 ReAct Agent 控制 GUI
 """
 
 from gui_agent import ReActAgent, AgentConfig, get_all_tools
-from gui_agent.tools import screenshot
+from gui_agent.tools import screenshot, get_sandbox_tools
 
 
 SYSTEM_PROMPT = """你是一个 GUI 自动化助手，可以通过工具控制电脑屏幕。
@@ -43,12 +43,17 @@ def main(api_url: str, api_key: str, model: str):
     for tool in get_all_tools():
         agent.register_tool(tool)
     
+    # 注册沙箱工具（Python 代码执行）
+    for tool in get_sandbox_tools():
+        agent.register_tool(tool)
+    
     # 先截取当前屏幕
     print("\n[Demo] 截取当前屏幕作为初始状态...")
     initial_screenshot = screenshot()
     
     # 运行任务
-    task = "请打开 chrome 浏览器，并通过 google 搜索一下今天的新闻"
+    task = "请打开 chrome 浏览器，并通过 google 搜索一下今天的新闻请打开 chrome 浏览器，并通过 google 搜索一下今天的新闻"
+    task = "请用python计算一下1+1=？并告诉我当前页面是什么？"
     print(f"\n[Demo] 任务: {task}")
     
     result = agent.run(task, image_base64=initial_screenshot.image_base64)
@@ -62,7 +67,7 @@ def main(api_url: str, api_key: str, model: str):
 if __name__ == "__main__":
     # 在这里配置你的 API
     API_URL = "https://api.bltcy.ai/v1/chat/completions"
-    API_KEY = "sk-F86v2p0Cy0wTxXxxc58DIitDrDX0igR7ojNxQ2"
+    API_KEY = "sk-F86v2p0Cy0wTxXxQMktTItFgsxc58DIitDrDX0igR7ojNxQ2"
     # 请联系作者获取apikey
     MODEL = "gemini-3-flash-preview"
 
